@@ -18,6 +18,45 @@ class CommentController{
             res.status(500).json({ msg : 'Error: ',error})
         })
     }
+
+    // get list of comments of one article
+    static getListOfComments(req,res){
+        Comment.find({articleId : req.body.articleId})
+            .then(articles=>{
+                res.status(200).json({
+                    msg : `list of comments with article id ${req.body.articleId}`,
+                    data : articles
+                })
+            })
+            .catch(error=>{
+                res.status(500).json({ msg : 'Error: ',error});
+            })
+    }
+
+    // delete one comment
+    static deleteOneComment(req,res){
+        Comment.findOne({_id : req.params.id})
+            .then(commentFound =>{
+                // check user authorization
+                if(commentFound.userIdComment == req.decoded.user_id){
+                    
+                    // delete comment
+                    Comment.findOneAndRemove({ _id: req.params.user_id})
+                        .then( comment =>{
+                            res.status(200).json({ msg : 'Comment has been deleted'})
+                        })
+                        .catch(error =>{
+                            res.status(500).json({ msg : 'Error', error})
+                        })
+
+                }else{
+                    res.status(500).json({ msg : 'You are not authorized to delete this comment'})
+                }
+            })
+            .catch(error =>{
+                res.status(500).json({ msg : 'Error: ',error});
+            })
+    }
 }
 
 module.exports = CommentController

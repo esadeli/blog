@@ -1,8 +1,9 @@
 'use strict'
 
-const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+// const User = require('../models/user');
+// const jwt = require('jsonwebtoken');
 const Article = require('../models/article');
+const Comment = require('../models/comment');
 
 class ArticleController {
     static createArticle(req,res){
@@ -100,19 +101,23 @@ class ArticleController {
                     //verify the user
                     if(articleFound.userId == req.decoded.user_id){
                         // delete all the existing comment in comment table first
+                        Comment.deleteMany({ articleId : req.params.id})
+                            .then(comments=>{
 
+                                // successful delete of all comments if any
 
-                        // final step delete the article
-                        Article.findOneAndRemove({_id : req.params.id})
-                            .then(article =>{
-                                res.status(200).json({ msg : `Article with title ${article.title} has been deleted`})
+                                // final step delete the article
+                                Article.findOneAndRemove({_id : req.params.id})
+                                    .then(article =>{
+                                        res.status(200).json({ msg : `Article with title ${article.title} has been deleted`})
+                                    })
+                                    .catch(error =>{
+                                        res.status(500).json({ msg : 'Error ',error})
+                                    })
                             })
                             .catch(error =>{
-                                res.status(500).json({ msg : 'Error ',error})
+                                res.status(500).json({ msg : 'Error: ',error})
                             })
-
-
-
                     }else{
                         res.status(401).json({ msg : 'You are not authorized to delete this article'});
                     }
