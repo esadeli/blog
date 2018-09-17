@@ -15,8 +15,7 @@ app.use(cors());
 //----> Define your routes here
 const UserRouter = require('./routes/UserRouter');
 const ArticleRouter = require('./routes/ArticleRouter');
-// const ItemRouter = require('./routes/ItemRouter');
-// const TransactionRouter = require('./routes/TransactionRouter');
+const CommentRouter = require('./routes/CommentRouter');
 
 
 const db = mongoose.connection;
@@ -28,6 +27,7 @@ db.once('open', function() {
 //----> Call your routes here
 app.use('/users',UserRouter);
 app.use('/articles',ArticleRouter);
+app.use('/comments/',CommentRouter);
 
 app.get('/',(req,res)=>{
     console.log('Base set up OK')

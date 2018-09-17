@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
-    description : {
+    content : {
         type : String
     },
-    userId : {
+    userIdComment : {
         type : Schema.Types.ObjectId,
         ref : 'User'
     },
