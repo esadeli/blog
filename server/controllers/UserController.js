@@ -4,8 +4,6 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const HashPassword = require('../helpers/HashPassword');
 const EmailValidator = require('../helpers/EmailValidator');
-// const mongoose = require('mongoose');
-// const ObjectId = mongoose.Types.ObjectId;
 
 class UserController {
 
@@ -26,15 +24,15 @@ class UserController {
                 // get back user's information
                 User.findOne({ email: req.body.email, password : hash })
                     .then( row =>{
-                        console.log('TEST-->',row)
+
                         // if exists get jwt token
                         jwt.sign({
                             user_id : row._id,
                             name : row.name,
-                            email : row.email,
+                            email : row.email
 
                         },process.env.SECRETTOKEN,(error,token)=>{
-                            console.log('ERROR-->',error)
+                            
                             if(error){
                                 res.status(401).json({ msg : 'Invalid jwt token, You are not authorized' })
                             }else{

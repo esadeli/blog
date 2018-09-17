@@ -14,7 +14,10 @@ class ArticleController {
             userId : req.decoded.user_id
         })
         .then(article=>{
-            res.status(200).json({ msg : `Article with name ${article.title} has been created`})
+            res.status(200).json({ 
+                msg : `Article with name ${article.title} has been created`,
+                data : article
+            })
         })
         .catch(error =>{
             res.status(500).json({ msg : 'Error: ',error })
@@ -52,14 +55,18 @@ class ArticleController {
 
     // edit one article
     static editOneArticle(req,res){
+        // console.log('PARAM----->',req.params.id)
         Article.findOne({_id : req.params.id})
             .then(articleFound=>{
+
+                // console.log('ARTICLE FOUND------>',articleFound)
                 // article found
                 if(articleFound){
-
+                    console.log('TEST---->',articleFound.userId,req.decoded.user_id)
                     // verify token and userId in article
                     if(articleFound.userId==req.decoded.user_id){
                         
+                
                         // let update this article
                         Article.findOneAndUpdate({ _id: req.params.id },{
                             title : req.body.title,

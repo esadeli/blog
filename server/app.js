@@ -5,7 +5,14 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/blogdb',{ useNewUrlParser: true });
+
+// for testing purposes use blogdbtesting
+// mongoose.connect('mongodb://localhost:27017/blogdbtesting',{ useNewUrlParser: true })
+if(process.env.NODE_ENV==='test'){
+    mongoose.connect('mongodb://localhost:27017/blogdbtesting',{ useNewUrlParser: true })
+}else{
+    mongoose.connect('mongodb://localhost:27017/blogdb',{ useNewUrlParser: true });
+}
 
 
 app.use(express.urlencoded({ extended : false}));
@@ -37,3 +44,5 @@ app.get('/',(req,res)=>{
 app.listen(3000, ()=>{
     console.log('You are listening to PORT 3000')
 })
+
+module.exports = app

@@ -7,6 +7,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 function IsLogin(req,res,next) {
     
+    // console.log('TOKEN MIDDLEWARE--->',req.headers.token)
     // check if token exists
     if(req.headers.token){
 
