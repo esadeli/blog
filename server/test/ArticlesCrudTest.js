@@ -11,34 +11,34 @@ const expect = chai.expect
 const app = require('../app');
 const jwt = require('jsonwebtoken');
 
-let getId = '';
-let getName = '';
-let getEmail = '';
-let getPassword = '';
+let getId ;
 let getToken = '';
 let getArticleId = '';
+
+// data awal
+let nameAwal = 'Dono';
+let emailAwal = 'dono@dono.com'; 
+let passwordAwal = 'dono';
 
 // testing get articles
 describe('Articles',()=>{
     beforeEach((done) => {
         User.create({
-            name : 'Dono',
-            email : 'dono@dono.com',
-            password : 'dono'
+            name : nameAwal,
+            email : emailAwal,
+            password : passwordAwal
         })
         .then(user =>{
             // console.log('USER-->',user)
                 getId = user._id;
-                getName = user.name;
-                getEmail = user.email;
             jwt.sign({
-                user_id : user._id,
-                name : user.name,
-                email : user.email
+                user_id : getId,
+                name : nameAwal,
+                email : emailAwal
             },process.env.SECRETTOKEN,(err,token)=>{
                 if(token){
                     getToken = token;
-                    console.log('ID AWAL------------------>',getId)
+                    // console.log('ID AWAL------------------>',getId)
                     done();
                 }else{
                     console.log('ERROR : ',err)
@@ -65,7 +65,7 @@ describe('Articles',()=>{
 
     // create new articles
     it('should create a new article',function(done){
-        console.log('ID Before create--->',getId)
+        // console.log('ID Before create--->',getId)
         chai.request(app)
         .post('/articles')
         .set('token',getToken)
@@ -87,7 +87,7 @@ describe('Articles',()=>{
 
     //edit articles
     it('should edit article',function(done){
-        console.log('ID BEFORE EDIT---->',getId)
+        // console.log('ID BEFORE EDIT---->',getId)
         // console.log('Article ID-->',getArticleId)
         // console.log('TOKEN TESTING----->',getToken);
         chai.request(app)
@@ -98,7 +98,7 @@ describe('Articles',()=>{
             description : 'Hasil Edit article biasa....'
         })
         .end((err,res)=>{
-            console.log('Hasil Edit-->',res.body)
+            // console.log('Hasil Edit-->',res.body)
             expect(res).to.have.status(200);
             // expect(res.body).to.be.a('object');
             // expect(res.body).to.have.a.property('msg');
@@ -109,7 +109,7 @@ describe('Articles',()=>{
 
     // delete article
     it('should delete article',function(done){
-        console.log('ID BEFORE Delete---->',getId)
+        // console.log('ID BEFORE Delete---->',getId)
         // console.log('Article ID-->',getArticleId)
         // console.log('TOKEN TESTING----->',getToken);
         chai.request(app)
@@ -127,7 +127,7 @@ describe('Articles',()=>{
 
     afterEach((done)=>{
         User.findOneAndRemove({
-            email : 'dono@dono.com'
+            email : emailAwal
         })
         .then( user =>{
 
