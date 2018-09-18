@@ -2,22 +2,8 @@
     <div class="col-md3-box">
         <h1>List articles</h1>
         <div class="list divScroll">
-            <div>
-                <h5>Dummy Post 1</h5>
-                <h5>Dummy Post 2</h5>
-                <h5>Dummy Post 3</h5>
-                <h5>Dummy Post 4</h5>
-                <h5>Dummy Post 5</h5>
-                <h5>Dummy Post 6</h5>
-                <h5>Dummy Post 7</h5>
-                <h5>Dummy Post 8</h5>
-                <h5>Dummy Post 7</h5>
-                <h5>Dummy Post 8</h5>
-                <h5>Dummy Post 9</h5>
-                <h5>Dummy Post 10</h5>
-                <h5>Dummy Post 11</h5>
-                <h5>Dummy Post 12</h5>
-                <h5>Dummy Post 13</h5>
+            <div v-for="(article, index) in articleslist" :key="index">
+                <h5>{{ article.title }}</h5>
             </div>
         </div>
     </div>
@@ -33,14 +19,14 @@ export default {
     }
   },
   created () {
-    // let self = this
+    let self = this
     axios({
       method: 'GET',
       url: 'http://localhost:3000/articles/lists'
     })
       .then(result => {
-        console.log('List Articles: ', result)
-        //   this.articleslist = result
+        console.log('List Articles: ', result.data.data)
+        self.articleslist = result.data.data
       })
       .catch(error => {
         console.log('ERROR: ', error)
