@@ -31,7 +31,7 @@ describe('POST register',()=>{
 })
 
 // login
-describe('POST login',()=>{
+describe('POST login -- normal login',()=>{
     it('should return token when login is successful',function(done){
         chai.request(app)
         .post('/users/login')
@@ -51,7 +51,7 @@ describe('POST login',()=>{
 
 // --------------> Negative TEST-------------------
 // unauthorized person try to login
-describe('POST login',()=>{
+describe('POST login -- negative test',()=>{
     it('should not show token when login is not successful',function(done){
         chai.request(app)
         .post('/users/login')
