@@ -12,7 +12,10 @@ class CommentController{
             articleId : req.body.articleId
         })
         .then(comment =>{
-            res.status(200).json({ msg : 'Comment has been created'})
+            res.status(200).json({ 
+                msg : 'Comment has been created',
+                data : comment
+            })
         })
         .catch(error =>{
             res.status(500).json({ msg : 'Error: ',error})
@@ -43,7 +46,11 @@ class CommentController{
                     // delete comment
                     Comment.findOneAndRemove({ _id: req.params.user_id})
                         .then( comment =>{
-                            res.status(200).json({ msg : 'Comment has been deleted'})
+                            res.status(200).json({ 
+                                msg : 'Comment has been deleted',
+                                data : comment
+                                
+                            })
                         })
                         .catch(error =>{
                             res.status(500).json({ msg : 'Error', error})
