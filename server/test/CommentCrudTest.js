@@ -1,7 +1,6 @@
 'use strict'
 process.env.NODE_ENV = "test"
 
-const assert = require('assert');
 const chai = require('chai')
 const chaiHttp = require('chai-http');
 const User = require('../models/user');

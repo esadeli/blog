@@ -1,7 +1,6 @@
 'use strict'
 process.env.NODE_ENV = "test"
 
-const assert = require('assert');
 const chai = require('chai')
 const chaiHttp = require('chai-http');
 const User = require('../models/user');
@@ -11,11 +10,8 @@ const expect = chai.expect
 const app = require('../app');
 const jwt = require('jsonwebtoken');
 
-
-
 // testing get articles
 describe('Articles',()=>{
-    // let getId ;
     let getToken = '';
     let getArticleId = '';
 
@@ -39,6 +35,7 @@ describe('Articles',()=>{
                     getToken = token;
                     // console.log('TOKEN before each------------------>',getToken)
 
+                    // create article
                     Article.create({
                         title : 'Ini judul article',
                         description : 'Penjabaran isi article',

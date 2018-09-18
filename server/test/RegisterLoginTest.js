@@ -1,15 +1,12 @@
 'use strict'
 process.env.NODE_ENV = "test"
 
-const assert = require('assert');
 const chai = require('chai')
 const chaiHttp = require('chai-http');
 const User = require('../models/user');
-const Article = require('../models/article');
 chai.use(chaiHttp)
 const expect = chai.expect
 const app = require('../app');
-const jwt = require('jsonwebtoken');
 
 // User new register
 describe('POST register',()=>{
