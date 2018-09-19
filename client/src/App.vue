@@ -1,29 +1,22 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <div class="container">
-      <div class="row row-body">
-        <Sidemenu></Sidemenu>
-        <Detail></Detail>
-      </div>
-    </div>
     <!--
       <div id="nav">
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link>
       </div>
     -->
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 <script>
 import Navbar from '@/components/Navbar.vue'
-import Sidemenu from '@/components/Sidemenu.vue'
-import Detail from '@/components/Detail.vue'
+import Article from '@/views/Article.vue'
 
 export default {
   components: {
-    Navbar, Sidemenu, Detail
+    Navbar, Article
   }
 }
 </script>

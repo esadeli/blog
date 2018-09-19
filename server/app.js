@@ -6,6 +6,11 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+app.use(express.urlencoded({ extended : false}));
+app.use(express.json());
+app.use(cors());
+
+
 // for testing purposes use blogdbtesting
 // mongoose.connect('mongodb://localhost:27017/blogdbtesting',{ useNewUrlParser: true })
 if(process.env.NODE_ENV==='test'){
@@ -15,9 +20,6 @@ if(process.env.NODE_ENV==='test'){
 }
 
 
-app.use(express.urlencoded({ extended : false}));
-app.use(express.json());
-app.use(cors());
 
 //----> Define your routes here
 const UserRouter = require('./routes/UserRouter');

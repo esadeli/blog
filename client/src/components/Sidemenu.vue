@@ -1,11 +1,11 @@
 <template>
     <div class="col-md3-box">
         <h1>List articles</h1>
-        <div class="list divScroll">
-            <div v-for="(article, index) in articleslist" :key="index">
-                <h5>{{ article.title }}</h5>
-            </div>
-        </div>
+         <ul class="list-group" v-for="(article, index) in articleslist" :key="index">
+            <li class="list-group-item">
+              <router-link :to="{ name: 'id', params: { id: article._id }}">{{ article.title }}</router-link>
+            </li>
+         </ul>
     </div>
 </template>
 
@@ -15,7 +15,13 @@ export default {
   name: 'Sidemenu',
   data: function () {
     return {
-      articleslist: []
+      articleslist: [],
+      articledetail: {}
+    }
+  },
+  methods: {
+    getdetail (input) {
+      this.articledetail = input
     }
   },
   created () {
@@ -25,7 +31,7 @@ export default {
       url: 'http://localhost:3000/articles/lists'
     })
       .then(result => {
-        console.log('List Articles: ', result.data.data)
+        // console.log('List Articles: ', result.data.data)
         self.articleslist = result.data.data
       })
       .catch(error => {

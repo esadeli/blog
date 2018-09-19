@@ -1,23 +1,22 @@
 <template>
     <div class="container">
-        <div class="col-md-15 box">
-            <div class="details">
-                <h1>Dummy Article Details</h1>
-                <p class="lead">
-                Title : Judul article
-                </p>
-                <br/>
-                Description :
-                <br/>
-                <h5>Blla bla bla....................................</h5>
-            </div>
-        </div>
+      <div class="row row-body">
+        <Sidemenu></Sidemenu>
+        <router-view></router-view>
+      </div>
     </div>
+
 </template>
 
 <script>
+import Sidemenu from '@/components/Sidemenu.vue'
+import Detail from '@/views/Detail.vue'
+
 export default {
-  name: 'Detail'
+  name: 'Article',
+  components: {
+    Sidemenu, Detail
+  }
 }
 </script>
 
