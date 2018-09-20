@@ -1,22 +1,42 @@
 <template>
-    <div class="col-md3-box">
-        <h1>List articles</h1>
-         <ul class="list-group" v-for="(article, index) in articleslist" :key="index">
-            <li class="list-group-item">
-              <router-link :to="{ name: 'id', params: { id: article._id }}">{{ article.title }}</router-link>
-            </li>
-         </ul>
+  <div>
+    <div v-if= "gettoken!== ''">
+      <div class="row">
+        <div class="col-md3-box">
+          <button class="btn btn-secondary">
+            <router-link :to="{ name: 'addarticle'}">Add Article</router-link></button>
+        </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md3-box">
+         <h1>Search Articles</h1>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md3-box">
+          <h1>List articles</h1>
+          <ul class="list-group" v-for="(article, index) in articleslist" :key="index">
+              <li class="list-group-item">
+                <router-link :to="{ name: 'id', params: { id: article._id }}">{{ article.title }}</router-link>
+              </li>
+          </ul>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 export default {
   name: 'Sidemenu',
+  props: ['token'],
   data: function () {
     return {
       articleslist: [],
-      articledetail: {}
+      articledetail: {},
+      gettoken: ''
     }
   },
   methods: {
@@ -31,12 +51,16 @@ export default {
       url: 'http://localhost:3000/articles/lists'
     })
       .then(result => {
-        // console.log('List Articles: ', result.data.data)
         self.articleslist = result.data.data
       })
       .catch(error => {
         console.log('ERROR: ', error)
       })
+  },
+  watch: {
+    token: function () {
+      this.gettoken = this.token
+    }
   }
 }
 </script>

@@ -25,7 +25,7 @@
 import axios from 'axios'
 export default {
   name: 'Detail',
-  props: ['id'],
+  props: ['id', 'token'],
   data () {
     return {
       articleid: '',

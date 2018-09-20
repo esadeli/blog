@@ -175,6 +175,8 @@ export default {
               // hide the login page
               // warning only will not stop the operation of client
               $('#loginUser').modal('hide')
+              // immediate redirect to articles after login
+              this.$router.push({ path: '/articles' })
             })
             .catch(error => {
               self.error = error
@@ -221,6 +223,8 @@ export default {
               this.$emit('result-token', self.token)
               // hide the register page
               $('#registerUser').modal('hide')
+              // immediate redirect to articles after register
+              this.$router.push({ path: '/articles' })
             })
             .catch(error => {
               self.error = error

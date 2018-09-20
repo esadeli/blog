@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 import Detail from './views/Detail.vue'
 import Article from './views/Article.vue'
 import AllArticles from './views/AllArticles.vue'
+import FormArticle from './views/FormArticle.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
           path: '/',
           name: 'allarticles',
           component: AllArticles
+        },
+        {
+          path: '/add',
+          name: 'addarticle',
+          component: FormArticle
         },
         {
           path: ':id',

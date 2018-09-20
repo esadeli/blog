@@ -1,33 +1,27 @@
 <template>
-    <div class="container">
-      <div class="row row-body">
-        <Sidemenu :token= "token"></Sidemenu>
-        <router-view :token= "token"></router-view>
-      </div>
+   <div class="container">
+        <div class="col-md-15 box">
+            <div class="details">
+                <h1>Article Form</h1>
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Title</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Description</label>
+                        <textarea class="form-control" rows="5" id="comment" placeholder="tell your story here"></textarea>
+                    </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import Sidemenu from '@/components/Sidemenu.vue'
-import Detail from '@/views/Detail.vue'
-import AllArticles from '@/views/AllArticles.vue'
-
 export default {
-  name: 'Article',
-  props: ['sendtoken'],
-  data () {
-    return {
-      token: ''
-    }
-  },
-  components: {
-    Sidemenu, Detail, AllArticles
-  },
-  watch: {
-    sendtoken: function () {
-      this.token = this.sendtoken
-    }
-  }
+
 }
 </script>
 
