@@ -10,6 +10,12 @@
                 Description :
                 <br/>
                 <h5>{{ articledata.description }}</h5>
+                <br/>
+                <br/>
+                Commentary Section:
+                <ul class="list-group" v-for="(comment,index) in commentslist" :key="index">
+                    <li class="list-group-item">{{ comment.content }}</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -23,14 +29,14 @@ export default {
   data () {
     return {
       articleid: '',
-      articledata: {}
+      articledata: {},
+      commentslist: []
     }
   },
   watch: {
     id: function (val) {
-      //   console.log('watch---->', val)
       this.articleid = val
-      //   console.log(' converted id', this.articleid)
+
       // get data
       let self = this
       axios({
@@ -38,9 +44,9 @@ export default {
         url: `http://localhost:3000/articles/details/${this.articleid}`
       })
         .then(result => {
-          // console.log('Articles: ', result.data.data)
           self.articledata = result.data.data
-          // console.log('After:  ', self.articledata)
+          self.commentslist = result.data.data.commentsList
+          console.log('CommentsList-->', self.commentslist)
         })
         .catch(error => {
           console.log('ERROR: ', error)
@@ -48,7 +54,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style>
