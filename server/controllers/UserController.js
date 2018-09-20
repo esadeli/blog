@@ -95,7 +95,7 @@ class UserController {
 
     // get all users
     static getAllUsers(req,res){
-        User.find({})
+        User.find({}).populate('articlesList').populate('commentsList')
             .then(rows=>{
                 
                 res.status(200).json({

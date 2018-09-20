@@ -1,6 +1,7 @@
 'use strict'
 
 const Comment = require('../models/comment');
+const Article = require('../models/article');
 
 class CommentController{
 
@@ -12,10 +13,28 @@ class CommentController{
             articleId : req.body.articleId
         })
         .then(comment =>{
-            res.status(200).json({ 
-                msg : 'Comment has been created',
-                data : comment
-            })
+            let newComment = comment;
+            // console.log('Comment -->',newComment)
+            //Update article
+            Article.findOne({ _id: req.body.articleId })
+                .then(article =>{
+                    // console.log('Article -->',article)
+                    article.update({
+                        $push : { commentsList : newComment}
+                    })
+                    .then( row =>{            
+                        res.status(200).json({ 
+                            msg : 'Comment has been created',
+                            data : newComment
+                        })
+                    })
+                    .catch( error =>{
+                        res.status(500).json({ msg : 'ERROR: ',error})
+                    })
+                })
+                .catch(error =>{
+                    res.status(500).json({ msg : 'ERROR: ',error})
+                })
         })
         .catch(error =>{
             res.status(500).json({ msg : 'Error: ',error})

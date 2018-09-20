@@ -1,6 +1,6 @@
 'use strict'
 
-// const User = require('../models/user');
+const User = require('../models/user');
 // const jwt = require('jsonwebtoken');
 const Article = require('../models/article');
 const Comment = require('../models/comment');
@@ -11,23 +11,46 @@ class ArticleController {
         Article.create({
             title : req.body.title,
             description : req.body.description,
-            userId : req.decoded.user_id
+            userId : req.decoded.user_id,
+            commentsList : []
         })
         .then(article=>{
-            res.status(200).json({ 
-                msg : `Article with name ${article.title} has been created`,
-                data : article
-            })
+            let newArticle = article
+            // console.log('Article -->',newArticle)
+
+            //update user
+            User.findOne({_id : req.decoded.user_id})
+                .then(user =>{
+                    // console.log('User-->',user)
+                    user.update({
+                        $push : {
+                            articlesList : newArticle
+                        }
+                    })
+                    .then(row=>{
+                        // console.log('ROW--->',row)
+                        res.status(200).json({ 
+                            msg : `Article with name ${article.title} has been created`,
+                            data : newArticle
+                        })
+                    })
+                    .catch(error =>{
+                        res.status(500).json({ msg : 'ERROR: ',error})
+                    })
+                })
+                .catch(error =>{
+                    res.status(500).json({ msg: 'ERROR: ',error})
+                })
         })
         .catch(error =>{
-            res.status(500).json({ msg : 'Error: ',error })
+            res.status(500).json({ msg : 'ERROR: ',error })
         })
     }
 
     // get list of articles
     static getListOfArticles(req,res){
 
-        Article.find({})
+        Article.find({}).populate('commentsList')
             .then(articles=>{
                 res.status(200).json({
                     msg : 'List of articles',
@@ -41,7 +64,7 @@ class ArticleController {
 
     // get one article
     static getOneArticle(req,res){
-        Article.findOne({_id : req.params.id})
+        Article.findOne({_id : req.params.id}).populate('commentsList')
             .then(article =>{
                 res.status(200).json({ 
                     msg : 'Detail of article',
@@ -69,7 +92,7 @@ class ArticleController {
                             title : req.body.title,
                             description : req.body.description,
                             userId : req.decoded.user_id, 
-                            commentsList : req.body.commentsList
+                            commentsList : []
                         })
                         .then(article =>{
                             // console.log('Article-->',article)
@@ -90,7 +113,6 @@ class ArticleController {
                     //this article is not found
                     res.status(500).json({ msg : 'Article is not found'})
                 }
-
             })
             .catch(error =>{
                 res.status(500).json({ msg : 'Error: ',error})
@@ -102,13 +124,11 @@ class ArticleController {
         Article.findOne({ _id : req.params.id })
             .then(articleFound=>{
                 if(articleFound){
-
                     //verify the user
                     if(articleFound.userId == req.decoded.user_id){
                         // delete all the existing comment in comment table first
                         Comment.deleteMany({ articleId : req.params.id})
                             .then(comments=>{
-
                                 // successful delete of all comments if any
 
                                 // final step delete the article
@@ -129,7 +149,6 @@ class ArticleController {
                     }else{
                         res.status(401).json({ msg : 'You are not authorized to delete this article'});
                     }
-
                 }else{
                     res.status(500).json({ msg : 'Article is not found'})
                 }
@@ -138,7 +157,6 @@ class ArticleController {
                 res.status(500).json({ msg : 'Error: ',error})
             })
     }
-    
 }
 
 module.exports = ArticleController
