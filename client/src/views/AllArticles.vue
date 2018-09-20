@@ -1,21 +1,44 @@
 <template>
-    <div class="container">
-      <div class="row row-body">
-        <Sidemenu></Sidemenu>
-        <router-view></router-view>
-      </div>
+ <div class="container">
+    <div class="col-md-15 box">
+        <h1>Article Newsfeed</h1>
+        <div v-for="(articledata, index) in articleslist" :key="index">
+            <div class="details">
+                <p class="lead">
+                Title : {{ articledata.title }}
+                </p>
+                <br/>
+                Description :
+                <br/>
+                <h5>{{ articledata.description }}</h5>
+            </div>
+        </div>
     </div>
+</div>
 </template>
 
 <script>
-import Sidemenu from '@/components/Sidemenu.vue'
-import Detail from '@/views/Detail.vue'
-import AllArticles from '@/views/AllArticles.vue'
-
+import axios from 'axios'
 export default {
-  name: 'Article',
-  components: {
-    Sidemenu, Detail, AllArticles
+  name: 'AllArticles',
+  data () {
+    return {
+      articleslist: []
+    }
+  },
+  created () {
+    let self = this
+    axios({
+      method: 'GET',
+      url: 'http://localhost:3000/articles/lists'
+    })
+      .then(result => {
+        // console.log('List Articles: ', result.data.data)
+        self.articleslist = result.data.data
+      })
+      .catch(error => {
+        console.log('ERROR: ', error)
+      })
   }
 }
 </script>
