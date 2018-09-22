@@ -6,6 +6,7 @@ import Detail from './views/Detail.vue'
 import Article from './views/Article.vue'
 import AllArticles from './views/AllArticles.vue'
 import FormArticle from './views/FormArticle.vue'
+import EditForm from './views/EditForm.vue'
 
 Vue.use(Router)
 
@@ -45,6 +46,12 @@ export default new Router({
           path: ':id',
           name: 'id',
           component: Detail,
+          props: true
+        },
+        {
+          path: 'edit/:id',
+          name: 'editarticle',
+          component: EditForm,
           props: true
         }]
     }

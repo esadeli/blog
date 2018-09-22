@@ -10,7 +10,11 @@
                             <hr/>
                             <div class="col-md-10"></div>
                             <div class="col-md-1">
-                                <button type="button" class="btn btn-warning">Edit</button>
+                                <button type="button" class="btn btn-warning">
+                                  <router-link :to="{ name: 'editarticle', params: { id: articledata._id }}">
+                                    <font style="color: white">Edit</font>
+                                  </router-link>
+                                </button>
                             </div>
                             <div class="col-md-2">
                                <button type="button" class="btn btn-danger" v-on:click= "deletearticle()">Delete</button>

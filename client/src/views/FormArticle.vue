@@ -17,7 +17,7 @@
                                 <label for="exampleInputPassword1">Description</label>
                                 <textarea class="form-control" rows="5" id="comment" placeholder="tell your story here" v-model= "description"></textarea>
                             </div>
-                        <button type="button" class="btn btn-primary" v-on:click= "createArticle()">Submit</button>
+                            <button type="button" class="btn btn-primary" v-on:click= "createArticle()">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -56,7 +56,6 @@ export default {
         }
       })
         .then(article => {
-          //   console.log('MASUK-->', article)
           // change a parameter that proof this is successful
           self.submissionok = true
           this.$router.push({ path: '/articles' })
