@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row row-body">
         <Sidemenu :token= "token" :updatedarticles= "updatearticleslist"></Sidemenu>
-        <router-view :token= "token" @result-articles-list= "getarticleslist"></router-view>
+        <router-view :token= "token" :userid= "userid" @result-articles-list= "getarticleslist"></router-view>
       </div>
     </div>
 </template>
@@ -14,10 +14,11 @@ import AllArticles from '@/views/AllArticles.vue'
 
 export default {
   name: 'Article',
-  props: ['sendtoken'],
+  props: ['sendtoken', 'senduserid'],
   data () {
     return {
       token: '',
+      userid: '',
       updatearticleslist: []
     }
   },
@@ -32,6 +33,9 @@ export default {
   watch: {
     sendtoken: function () {
       this.token = this.sendtoken
+    },
+    senduserid: function () {
+      this.userid = this.senduserid
     }
   }
 }

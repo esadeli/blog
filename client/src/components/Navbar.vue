@@ -175,6 +175,8 @@ export default {
 
               // emit back to parent
               this.$emit('result-token', self.token)
+              this.$emit('result-user-id', self.userId)
+              this.$emit('result-name-lengkap', self.namelengkap)
 
               // hide the login page
               // warning only will not stop the operation of client

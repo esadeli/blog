@@ -3,9 +3,20 @@
         <div class="col-md-15 box">
             <div class="details">
                 <h1>Article Details</h1>
-                <p class="lead">
-                Title : {{ articledata.title }}
-                </p>
+                    <div class="lead">
+                        Title : {{ articledata.title }}
+                        <br/>
+                        <hr/>
+                        <div class=row v-if= "token !== '' && articledata.userId === userid">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-warning">Edit</button>
+                            </div>
+                            <div class="col-md-2">
+                               <button type="button" class="btn btn-danger" v-on:click= "deletearticle()">Delete</button>
+                            </div>
+                        </div>
+                    </div>
                 <br/>
                 Description :
                 <br/>
@@ -25,12 +36,34 @@
 import axios from 'axios'
 export default {
   name: 'Detail',
-  props: ['id', 'token'],
+  props: ['id', 'token', 'userid'],
   data () {
     return {
       articleid: '',
       articledata: {},
       commentslist: []
+    }
+  },
+  methods: {
+    deletearticle () {
+      console.log('article id-->', this.id)
+      console.log('user id -->', this.userid)
+      console.log('article--->', this.articledata)
+      let self = this
+      axios({
+        method: 'delete',
+        url: `http://localhost:3000/articles/delete/${self.id}`,
+        headers: {
+          token: self.token
+        }
+      })
+        .then(article => {
+          console.log('DELETE article-->', article)
+          this.$router.push({ path: '/articles' })
+        })
+        .catch(error => {
+          console.log('ERROR: ', error)
+        })
     }
   },
   watch: {

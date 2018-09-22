@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <Navbar @result-token= "gettoken"></Navbar>
+    <Navbar @result-token= "gettoken" @result-user-id= "getuserid"></Navbar>
     <!--
       <div id="nav">
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link>
       </div>
     -->
-    <router-view :sendtoken= "token"></router-view>
+    <router-view :sendtoken= "token" :senduserid= "userid"></router-view>
   </div>
 </template>
 <script>
@@ -17,13 +17,16 @@ import Article from '@/views/Article.vue'
 export default {
   data () {
     return {
-      token: ''
+      token: '',
+      userid: ''
     }
   },
   methods: {
     gettoken (input) {
       this.token = input
-      // console.log('input--->', this.token)
+    },
+    getuserid (input) {
+      this.userid = input
     }
   },
   components: {
