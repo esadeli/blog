@@ -6,8 +6,8 @@
                     <div class="lead">
                         Title : {{ articledata.title }}
                         <br/>
-                        <hr/>
                         <div class=row v-if= "token !== '' && articledata.userId === userid">
+                            <hr/>
                             <div class="col-md-10"></div>
                             <div class="col-md-1">
                                 <button type="button" class="btn btn-warning">Edit</button>
@@ -15,6 +15,7 @@
                             <div class="col-md-2">
                                <button type="button" class="btn btn-danger" v-on:click= "deletearticle()">Delete</button>
                             </div>
+                            <hr/>
                         </div>
                     </div>
                 <br/>
@@ -49,21 +50,25 @@ export default {
       console.log('article id-->', this.id)
       console.log('user id -->', this.userid)
       console.log('article--->', this.articledata)
-      let self = this
-      axios({
-        method: 'delete',
-        url: `http://localhost:3000/articles/delete/${self.id}`,
-        headers: {
-          token: self.token
-        }
-      })
-        .then(article => {
-          console.log('DELETE article-->', article)
-          this.$router.push({ path: '/articles' })
+      // Note: it's not necessary to put this validation since we have hide the button
+      // yet double validation is better
+      if (this.articledata.userId === this.userid) {
+        let self = this
+        axios({
+          method: 'delete',
+          url: `http://localhost:3000/articles/delete/${self.id}`,
+          headers: {
+            token: self.token
+          }
         })
-        .catch(error => {
-          console.log('ERROR: ', error)
-        })
+          .then(article => {
+            //   console.log('DELETE article-->', article)
+            this.$router.push({ path: '/articles' })
+          })
+          .catch(error => {
+            console.log('ERROR: ', error)
+          })
+      }
     }
   },
   watch: {

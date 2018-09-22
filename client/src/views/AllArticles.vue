@@ -1,5 +1,7 @@
 <template>
  <div class="container">
+    <br/>
+    <br/>
     <div class="col-md-15 box">
         <h1>Article Newsfeed</h1>
         <div v-for="(articledata, index) in articleslist" :key="index">
