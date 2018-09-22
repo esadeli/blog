@@ -1,8 +1,8 @@
 <template>
     <div class="container">
       <div class="row row-body">
-        <Sidemenu :token= "token"></Sidemenu>
-        <router-view :token= "token"></router-view>
+        <Sidemenu :token= "token" :updatedarticles= "updatearticleslist"></Sidemenu>
+        <router-view :token= "token" @result-articles-list= "getarticleslist"></router-view>
       </div>
     </div>
 </template>
@@ -17,11 +17,17 @@ export default {
   props: ['sendtoken'],
   data () {
     return {
-      token: ''
+      token: '',
+      updatearticleslist: []
     }
   },
   components: {
     Sidemenu, Detail, AllArticles
+  },
+  methods: {
+    getarticleslist (input) {
+      this.updatearticleslist = input
+    }
   },
   watch: {
     sendtoken: function () {

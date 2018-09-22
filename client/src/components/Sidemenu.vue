@@ -3,8 +3,11 @@
     <div v-if= "gettoken!== ''">
       <div class="row">
         <div class="col-md3-box">
-          <button class="btn btn-secondary">
-            <router-link :to="{ name: 'addarticle'}">Add Article</router-link></button>
+            <button class="btn btn-secondary">
+              <router-link :to="{ name: 'addarticle'}">
+                  <font style="color: white">Add Article</font>
+              </router-link>
+            </button>
         </div>
       </div>
     </div>
@@ -31,7 +34,7 @@
 import axios from 'axios'
 export default {
   name: 'Sidemenu',
-  props: ['token'],
+  props: ['token', 'updatedarticles'],
   data: function () {
     return {
       articleslist: [],
@@ -60,6 +63,9 @@ export default {
   watch: {
     token: function () {
       this.gettoken = this.token
+    },
+    updatedarticles: function () {
+      this.articleslist = this.updatedarticles
     }
   }
 }
@@ -128,5 +134,9 @@ input.search {
     width: 800px;
     border-radius: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#addarticle {
+  background: white;
 }
 </style>

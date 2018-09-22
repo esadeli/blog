@@ -46,7 +46,7 @@ export default {
         .then(result => {
           self.articledata = result.data.data
           self.commentslist = result.data.data.commentsList
-          console.log('CommentsList-->', self.commentslist)
+        //   console.log('CommentsList-->', self.commentslist)
         })
         .catch(error => {
           console.log('ERROR: ', error)

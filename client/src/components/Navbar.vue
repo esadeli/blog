@@ -4,7 +4,12 @@
             <div class="row">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                     <div class="container">
+                        <!--
                         <a class="navbar-brand" href="#">Blogger Qeren</a>
+                        -->
+                        <div class="navbar-brand">
+                           <router-link :to="{name: 'allarticles'}" style="color: white">Blogger Qeren</router-link>
+                        </div>
                         <div class="navbar-brand">
                             <div class="row">
                                 <div v-if= "namelengkap === '' ">
@@ -160,6 +165,7 @@ export default {
             }
           })
             .then(user => {
+              //   console.log('USER awal-->', user.data.data)
               self.userId = user.data.data.id
               self.namelengkap = user.data.data.name
               // empty the password
@@ -168,8 +174,6 @@ export default {
               self.token = localStorage.getItem('token')
 
               // emit back to parent
-              this.$emit('result-user-id', self.userId)
-              this.$emit('result-name-lengkap', self.namelengkap)
               this.$emit('result-token', self.token)
 
               // hide the login page
@@ -188,12 +192,12 @@ export default {
     },
     registerToSite () {
       let self = this
-      console.log('Data awal-->', self.namelengkap, self.email, self.password)
+      //   console.log('Data awal-->', self.namelengkap, self.email, self.password)
       axios({
         method: 'POST',
         url: 'http://localhost:3000/users/register',
         data: {
-          namelengkap: self.namelengkap,
+          name: self.namelengkap,
           email: self.email,
           password: self.password
         }
@@ -236,11 +240,21 @@ export default {
         })
     },
     logout () {
-      console.log('TEST--> logout')
-      self.namelengkap = ''
-      self.email = ''
-      self.password = ''
+      this.userId = ''
+      this.namelengkap = ''
+      this.email = ''
+      this.password = ''
+      this.gettoken = ''
       localStorage.setItem('token', '')
+      this.$router.push({ path: '/articles' })
+    }
+  },
+  watch: {
+    token: function () {
+      this.token = localStorage.getItem('token')
+    },
+    namelengkap: function () {
+      this.namelengkap = this.namelengkap
     }
   }
 }

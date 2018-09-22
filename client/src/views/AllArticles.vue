@@ -35,6 +35,7 @@ export default {
       .then(result => {
         // console.log('List Articles: ', result.data.data)
         self.articleslist = result.data.data
+        this.$emit('result-articles-list', self.articleslist)
       })
       .catch(error => {
         console.log('ERROR: ', error)

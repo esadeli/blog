@@ -23,7 +23,7 @@ export default {
   methods: {
     gettoken (input) {
       this.token = input
-      console.log('input--->', this.token)
+      // console.log('input--->', this.token)
     }
   },
   components: {
