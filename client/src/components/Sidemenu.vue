@@ -13,18 +13,27 @@
     </div>
     <div class="row">
       <div class="col-md3-box">
-         <h1>Search Articles</h1>
-
+         <h2>Search Articles</h2>
+         <input class="search" v-model= "search" @keyup= "getsearch" type="text" placeholder="Type and press Enter">
       </div>
     </div>
     <div class="row">
       <div class="col-md3-box">
-          <h1>List articles</h1>
-          <ul class="list-group" v-for="(article, index) in articleslist" :key="index">
-              <li class="list-group-item">
-                <router-link :to="{ name: 'id', params: { id: article._id }}">{{ article.title }}</router-link>
-              </li>
-          </ul>
+          <h2>List articles</h2>
+          <div v-if= "sortedarticleslist.length === 0">
+            <ul class="list-group" v-for="(article, index) in articleslist" :key="index">
+                <li class="list-group-item">
+                  <router-link :to="{ name: 'id', params: { id: article._id }}">{{ article.title }}</router-link>
+                </li>
+            </ul>
+          </div>
+          <div v-else>
+            <ul class="list-group" v-for="(sortedarticle, index) in sortedarticleslist" :key="index">
+                <li class="list-group-item">
+                  <router-link :to="{ name: 'id', params: { id: sortedarticle._id }}">{{ sortedarticle.title }}</router-link>
+                </li>
+            </ul>
+          </div>
       </div>
     </div>
   </div>
@@ -39,12 +48,34 @@ export default {
     return {
       articleslist: [],
       articledetail: {},
-      gettoken: ''
+      sortedarticleslist: [],
+      gettoken: '',
+      search: ''
     }
   },
   methods: {
     getdetail (input) {
       this.articledetail = input
+    },
+    getsearch (event) {
+      // make sure user press enter before getting the search result
+      if (event.code === 'Enter') {
+        let self = this
+        axios({
+          method: 'POST',
+          url: 'http://localhost:3000/articles/search',
+          data: {
+            keyword: self.search
+          }
+        })
+          .then(articles => {
+            self.sortedarticleslist = articles.data.data
+            console.log('hasil sort-->', articles.data.data)
+          })
+          .catch(error => {
+            console.log('ERROR: ', error)
+          })
+      }
     }
   },
   created () {
