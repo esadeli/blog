@@ -157,6 +157,28 @@ class ArticleController {
                 res.status(500).json({ msg : 'Error: ',error})
             })
     }
+
+    // get articles by keyword
+    static getArticlesByKeyword(req,res){
+        // get regex
+        let regex = new RegExp(`${req.body.keyword}`,'i');
+        Article.find({}).populate('commentsList')
+            .then(articles =>{
+                let arraySort = [];
+                articles.forEach( article =>{
+                    if(regex.test(article.title)) {
+                       arraySort.push(article)
+                    }    
+                })
+                res.status(200).json({
+                    msg: 'List of sorted data',
+                    data: arraySort
+                })
+            })
+            .catch(error =>{
+                res.send(500).json({ msg: 'ERROR: ',error});
+            })
+    }
 }
 
 module.exports = ArticleController

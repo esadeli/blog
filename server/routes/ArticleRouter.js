@@ -15,7 +15,7 @@ router.get('/lists',(req,res)=>{
     ArticleController.getListOfArticles(req,res);
 })
 
-// get the details list of all article
+// get the details list of specific article
 router.get('/details/:id',(req,res)=>{
     ArticleController.getOneArticle(req,res);
 })
@@ -28,6 +28,11 @@ router.put('/edit/:id',IsLogin,(req,res)=>{
 // delete articles
 router.delete('/delete/:id',IsLogin,(req,res)=>{
     ArticleController.deleteOneArticle(req,res);
+})
+
+// get articles by keyword
+router.post('/search',(req,res)=>{
+    ArticleController.getArticlesByKeyword(req,res);
 })
 
 module.exports = router
