@@ -93,9 +93,6 @@ export default {
     // add new comment
     addcomment () {
       let self = this
-      console.log('Token-->', self.token)
-      console.log('Articleid-->', self.id)
-      console.log('new comment-->', self.newcomment)
       axios({
         method: 'POST',
         url: `http://localhost:3000/comments`,
@@ -108,7 +105,7 @@ export default {
         }
       })
         .then(comment => {
-          console.log('sukses--->', comment)
+          this.$router.push({ path: `/articles/${self.id} `})
         })
         .catch(error => {
           console.log('ERROR: ', error)
