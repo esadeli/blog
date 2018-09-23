@@ -8,7 +8,17 @@
                         <a class="navbar-brand" href="#">Blogger Qeren</a>
                         -->
                         <div class="navbar-brand">
-                           <router-link :to="{name: 'allarticles'}" style="color: white">Blogger Qeren</router-link>
+                           <div class="row">
+                               <div class="col-md-6">
+                                  <router-link :to="{name: 'allarticles'}" style="color: white">Blogger Qeren</router-link>
+                               </div>
+                               <div class="col-md-6">
+                                  <div v-if= "token !== '' && namelengkap !== ''">
+                                      Welcome {{ namelengkap }}!
+                                  </div>  
+                               </div>
+                           </div> 
+
                         </div>
                         <div class="navbar-brand">
                             <div class="row">
