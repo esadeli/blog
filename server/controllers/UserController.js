@@ -95,6 +95,8 @@ class UserController {
 
     // get all users
     static getAllUsers(req,res){
+        // note double populate doesnot guarantee that when the secondary
+        // tables data will automatically removed (in Postman) when you delete it
         User.find({}).populate('articlesList').populate('commentsList')
             .then(rows=>{
                 

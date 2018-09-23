@@ -61,14 +61,13 @@ class CommentController{
             .then(commentFound =>{
                 // check user authorization
                 if(commentFound.userIdComment == req.decoded.user_id){
-                    
                     // delete comment
-                    Comment.findOneAndRemove({ _id: req.params.user_id})
+                    // Comment.deleteOne({ userIdComment: req.params.user_id})
+                    commentFound.remove()
                         .then( comment =>{
                             res.status(200).json({ 
                                 msg : 'Comment has been deleted',
                                 data : comment
-                                
                             })
                         })
                         .catch(error =>{
