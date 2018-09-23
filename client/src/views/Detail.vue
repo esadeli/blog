@@ -105,12 +105,27 @@ export default {
         }
       })
         .then(comment => {
-          this.$router.push({ path: `/articles/${self.id} `})
+          this.$router.push({ path: `/articles/${self.id}` })
         })
         .catch(error => {
           console.log('ERROR: ', error)
         })
     }
+  },
+  created () {
+    // get data
+    let self = this
+    axios({
+      method: 'GET',
+      url: `http://localhost:3000/articles/details/${self.id}`
+    })
+      .then(result => {
+        self.articledata = result.data.data
+        self.commentslist = result.data.data.commentsList
+      })
+      .catch(error => {
+        console.log('ERROR: ', error)
+      })
   },
   watch: {
     id: function (val) {
