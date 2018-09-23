@@ -32,7 +32,18 @@
                 <hr>
                 <div v-if= "commentslist.length !== 0">
                   <ul class="list-group" v-for="(comment,index) in commentslist" :key="index">
-                     <li class="list-group-item">{{ comment.content }}</li>
+                     <li class="list-group-item">
+                        <div class="row">
+                          <div class="col-md-9">
+                            {{ comment.content }}
+                          </div>
+                          <div class="col-md-3">
+                            <div v-if= "comment.userIdComment == userid">
+                              <button type="button" class="btn btn-danger" v-on:click= "deletecomment(comment._id)">Delete Comment</button>
+                            </div>
+                          </div>
+                        </div>
+                     </li>
                   </ul>
                 </div>
                 <div v-else>
@@ -110,9 +121,29 @@ export default {
         .catch(error => {
           console.log('ERROR: ', error)
         })
+    },
+
+    // delete comment
+    deletecomment (input) {
+      let commentId = input
+      let self = this
+      // console.log('Ini id comment--->', input)
+      axios({
+        method: 'delete',
+        url: `http://localhost:3000/comments/delete/${commentId}`,
+        headers: {
+          token: self.token
+        }
+      })
+        .then(comment => {
+          console.log('SUKSES-->', comment)
+        })
+        .catch(error => {
+          console.log('ERROR: ', error)
+        })
     }
   },
-  created () {
+  created () { // purposefully added to handle first time detail clicked
     // get data
     let self = this
     axios({
