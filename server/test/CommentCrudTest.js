@@ -146,9 +146,9 @@ describe('Comment',()=>{
         .set('token',getToken)
         .end((err,res)=>{
             expect(res).to.have.status(200);
-            expect(res.body).to.be.a('object');
-            expect(res.body).to.have.a.property('data');
-            expect(res.body.data).to.be.a('null');
+            expect(res.body.data).to.be.a('object');
+            expect(res.body.data).to.have.a.property('content');
+            expect(res.body.data).to.have.a.property('userIdComment');
             done();
         })
     })
