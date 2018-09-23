@@ -2,9 +2,9 @@
     <div class="container">
         <div class="col-md-15 box">
             <div class="details">
-                <h1>Article Details</h1>
+                <h1>Cerita lengkap</h1>
                     <div class="lead">
-                        Title : {{ articledata.title }}
+                        <h4><span class="badge badge-light">{{ articledata.title }}</span></h4>
                         <br/>
                         <div class=row v-if= "token !== '' && articledata.userId === userid">
                             <hr/>
@@ -23,12 +23,14 @@
                         </div>
                     </div>
                 <br/>
-                Description :
+                <span class="badge badge-light">Description :</span>
                 <br/>
                 <h5>{{ articledata.description }}</h5>
                 <br/>
                 <br/>
-                Commentary Section:
+                <h3>
+                  <span class="badge badge-secondary">Commentary Section: </span>
+                </h3>
                 <hr>
                 <div v-if= "commentslist.length !== 0">
                   <ul class="list-group" v-for="(comment,index) in commentslist" :key="index">

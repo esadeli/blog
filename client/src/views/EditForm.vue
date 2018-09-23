@@ -2,7 +2,7 @@
   <div class="container">
         <div class="col-md-15 box">
             <div class="details">
-                <h1>Article Edit</h1>
+                <h1>Revisi Cerita Kamu</h1>
                 <form>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Title</label>
@@ -47,7 +47,7 @@ export default {
         }
       })
         .then(article => {
-          this.$router.push({ path: '/articles' })
+          this.$router.push({ path: `/articles/${self.id}` })
         })
         .catch(error => {
           console.log('ERROR: ', error)

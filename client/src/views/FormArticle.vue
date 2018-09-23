@@ -7,7 +7,7 @@
             <div class="container">
                 <div class="col-md-15 box">
                     <div class="details">
-                        <h1>Article Form</h1>
+                        <h1>Bagikan Cerita Kamu</h1>
                         <form>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Title</label>
