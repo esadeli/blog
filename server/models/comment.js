@@ -11,6 +11,9 @@ const CommentSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : 'User'
     },
+    userfullname:{
+        type: String
+    },
     articleId : {
         type : Schema.Types.ObjectId,
         ref : 'Article'

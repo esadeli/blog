@@ -10,11 +10,11 @@ class CommentController{
         Comment.create({
             content : req.body.content,
             userIdComment : req.decoded.user_id,
+            userfullname: req.decoded.name,
             articleId : req.body.articleId
         })
         .then(comment =>{
             let newComment = comment;
-            // console.log('Comment -->',newComment)
             //Update article
             Article.findOne({ _id: req.body.articleId })
                 .then(article =>{
