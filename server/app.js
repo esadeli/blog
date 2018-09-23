@@ -16,7 +16,8 @@ app.use(cors());
 if(process.env.NODE_ENV==='test'){
     mongoose.connect('mongodb://localhost:27017/blogdbtesting',{ useNewUrlParser: true })
 }else{
-    mongoose.connect('mongodb://localhost:27017/blogdb',{ useNewUrlParser: true });
+    mongoose.connect(process.env.MONGO_USER, { useNewUrlParser : true});
+    // mongoose.connect('mongodb://localhost:27017/blogdb',{ useNewUrlParser: true });
 }
 
 
@@ -43,8 +44,8 @@ app.get('/',(req,res)=>{
     res.send('OK')// penyebab error mlab jika tidak dipasang
 });
 
-app.listen(3000, ()=>{
-    console.log('You are listening to PORT 3000')
+app.listen(process.env.PORT ||3000, ()=>{
+    console.log('You are listening to PORT')
 })
 
 module.exports = app
