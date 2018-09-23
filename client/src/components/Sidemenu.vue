@@ -70,7 +70,6 @@ export default {
         })
           .then(articles => {
             self.sortedarticleslist = articles.data.data
-            console.log('hasil sort-->', articles.data.data)
           })
           .catch(error => {
             console.log('ERROR: ', error)

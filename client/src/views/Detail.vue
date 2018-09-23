@@ -38,7 +38,7 @@
                             {{ comment.content }}
                           </div>
                           <div class="col-md-3">
-                            <div v-if= "comment.userIdComment == userid">
+                            <div v-if= "comment.userIdComment == userid && token !== '' ">
                               <button type="button" class="btn btn-danger" v-on:click= "deletecomment(comment._id)">Delete Comment</button>
                             </div>
                           </div>
@@ -116,7 +116,19 @@ export default {
         }
       })
         .then(comment => {
-          this.$router.push({ path: `/articles/${self.id}` })
+          // get the updated comment
+          axios({
+            method: 'GET',
+            url: `http://localhost:3000/articles/details/${self.id}`
+          })
+            .then(articles => {
+              self.commentslist = articles.data.data.commentsList
+              self.newcomment = ''
+              this.$router.push({ path: `/articles/${self.id}` })
+            })
+            .catch(error => {
+              console.log('ERROR: ', error)
+            })
         })
         .catch(error => {
           console.log('ERROR: ', error)
@@ -136,7 +148,18 @@ export default {
         }
       })
         .then(comment => {
-          console.log('SUKSES-->', comment)
+          // get the updated comment
+          axios({
+            method: 'GET',
+            url: `http://localhost:3000/articles/details/${self.id}`
+          })
+            .then(articles => {
+              self.commentslist = articles.data.data.commentsList
+              this.$router.push({ path: `/articles/${self.id}` })
+            })
+            .catch(error => {
+              console.log('ERROR: ', error)
+            })
         })
         .catch(error => {
           console.log('ERROR: ', error)
