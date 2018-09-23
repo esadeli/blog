@@ -34,10 +34,13 @@
                   <ul class="list-group" v-for="(comment,index) in commentslist" :key="index">
                      <li class="list-group-item">
                         <div class="row">
-                          <div class="col-md-9">
+                          <div class="col-md-2">
+                            <span class="badge badge-secondary">{{ comment.userfullname }} </span>
+                          </div>
+                          <div class="col-md-7">
                             {{ comment.content }}
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-1">
                             <div v-if= "comment.userIdComment == userid && token !== '' ">
                               <button type="button" class="btn btn-danger" v-on:click= "deletecomment(comment._id)">Delete Comment</button>
                             </div>

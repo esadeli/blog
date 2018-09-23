@@ -4,9 +4,6 @@
             <div class="row">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                     <div class="container">
-                        <!--
-                        <a class="navbar-brand" href="#">Blogger Qeren</a>
-                        -->
                         <div class="navbar-brand">
                            <div class="row">
                                <div class="col-md-6">
@@ -15,10 +12,9 @@
                                <div class="col-md-6">
                                   <div v-if= "token !== '' && namelengkap !== ''">
                                       Welcome {{ namelengkap }}!
-                                  </div>  
+                                  </div>
                                </div>
-                           </div> 
-
+                           </div>
                         </div>
                         <div class="navbar-brand">
                             <div class="row">
@@ -75,13 +71,25 @@
                             </div>
                         </div>
                         <div>
-                            <label>Email :  </label>
-                            <input v-model="email"  type="text" placeholder="email">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Email :  </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input v-model="email"  type="text" placeholder="email">
+                                </div>
+                            </div>
                         </div>
                         <br/>
                         <div>
-                            <label>Password :  </label>
-                            <input v-model="password" type="password" placeholder="password">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Password :  </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input v-model="password" type="password" placeholder="password">
+                                </div>
+                            </div>
                         </div>
                         <br/>
                     </div>
@@ -115,16 +123,34 @@
                             </div>
                         </div>
                         <div>
-                            <label>Name :  </label>
-                            <input v-model="namelengkap"  type="text" placeholder="name">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Name :  </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input v-model="namelengkap"  type="text" placeholder="name">
+                                </div>
+                            </div>
                         </div>
                         <div>
-                            <label>Email :  </label>
-                            <input v-model="email"  type="text" placeholder="email">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Email :  </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input v-model="email"  type="text" placeholder="email">
+                                </div>
+                            </div>
                         </div>
                         <div>
-                            <label>Password :  </label>
-                            <input v-model="password" type="password" placeholder="password">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Password :  </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input v-model="password" type="password" placeholder="password">
+                                </div>
+                            </div>
                         </div>
                         <br/>
                     </div>

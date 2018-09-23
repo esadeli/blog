@@ -12,6 +12,11 @@
       </div>
     </div>
     <div class="row">
+        <div id="quotesection">
+            <h2>Quote of The Day</h2>
+        </div>
+    </div>
+    <div class="row">
       <div class="col-md3-box">
          <h2>Search Articles</h2>
          <input class="search" v-model= "search" @keyup= "getsearch" type="text" placeholder="Type and press Enter">
@@ -50,7 +55,9 @@ export default {
       articledetail: {},
       sortedarticleslist: [],
       gettoken: '',
-      search: ''
+      search: '',
+      quote: '',
+      quotelink: ''
     }
   },
   methods: {
@@ -79,12 +86,30 @@ export default {
   },
   created () {
     let self = this
+    // get list of articles
     axios({
       method: 'GET',
       url: 'http://localhost:3000/articles/lists'
     })
       .then(result => {
         self.articleslist = result.data.data
+      })
+      .catch(error => {
+        console.log('ERROR: ', error)
+      })
+
+    // get random quote
+    axios({
+      method: 'GET',
+      url: 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand'
+    })
+      .then(quote => {
+        self.quote = quote.data[0].content
+        self.quotelink = quote.data[0].link
+        // console.log('QUOTE--->',quote.data[0])
+        $('#quotesection').append(`
+            <a href="${self.quotelink}" target = "_blank" style = "color: black">${self.quote}</a>
+        `)
       })
       .catch(error => {
         console.log('ERROR: ', error)
@@ -168,5 +193,10 @@ input.search {
 
 #addarticle {
   background: white;
+}
+
+#quotesection {
+  font-family: 'Montserrat', sans-serif;
+  background: burlywood;
 }
 </style>

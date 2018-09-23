@@ -1,8 +1,10 @@
 <template>
-    <div class="container">
-      <div class="row row-body">
-        <Sidemenu :token= "token" :updatedarticles= "updatearticleslist"></Sidemenu>
-        <router-view :token= "token" :userid= "userid" @result-articles-list= "getarticleslist"></router-view>
+    <div class="container-fluid">
+      <div id="articleBodyCustom">
+        <div class="row row-body">
+          <Sidemenu id="sideMenuCustom" :token= "token" :updatedarticles= "updatearticleslist"></Sidemenu>
+          <router-view :token= "token" :userid= "userid" @result-articles-list= "getarticleslist"></router-view>
+        </div>
       </div>
     </div>
 </template>
@@ -104,5 +106,15 @@ input.search {
     width: 800px;
     border-radius: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#articleBodyCustom {
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-right: 10px;
+}
+
+#sideMenuCustom {
+  margin-right: 10px;
 }
 </style>
