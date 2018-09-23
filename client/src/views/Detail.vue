@@ -29,9 +29,26 @@
                 <br/>
                 <br/>
                 Commentary Section:
-                <ul class="list-group" v-for="(comment,index) in commentslist" :key="index">
-                    <li class="list-group-item">{{ comment.content }}</li>
-                </ul>
+                <hr>
+                <div v-if= "commentslist.length !== 0">
+                  <ul class="list-group" v-for="(comment,index) in commentslist" :key="index">
+                     <li class="list-group-item">{{ comment.content }}</li>
+                  </ul>
+                </div>
+                <div v-else>
+                   <p>No comments available</p>
+                </div>
+                <hr>
+                <div v-if= "token !== '' && userid !== ''">
+                   <h4>Add comment</h4>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Comment</label>
+                            <textarea class="form-control" rows="5" id="comment" placeholder="tell your story here" v-model= "newcomment"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary" v-on:click= "addcomment()">Add Comment</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -46,14 +63,13 @@ export default {
     return {
       articleid: '',
       articledata: {},
-      commentslist: []
+      commentslist: [],
+      newcomment: ''
     }
   },
   methods: {
+    // delete individual article
     deletearticle () {
-      console.log('article id-->', this.id)
-      console.log('user id -->', this.userid)
-      console.log('article--->', this.articledata)
       // Note: it's not necessary to put this validation since we have hide the button
       // yet double validation is better
       if (this.articledata.userId === this.userid) {
@@ -66,13 +82,37 @@ export default {
           }
         })
           .then(article => {
-            //   console.log('DELETE article-->', article)
             this.$router.push({ path: '/articles' })
           })
           .catch(error => {
             console.log('ERROR: ', error)
           })
       }
+    },
+
+    // add new comment
+    addcomment () {
+      let self = this
+      console.log('Token-->', self.token)
+      console.log('Articleid-->', self.id)
+      console.log('new comment-->', self.newcomment)
+      axios({
+        method: 'POST',
+        url: `http://localhost:3000/comments`,
+        headers: {
+          token: self.token
+        },
+        data: {
+          content: self.newcomment,
+          articleId: self.id
+        }
+      })
+        .then(comment => {
+          console.log('sukses--->', comment)
+        })
+        .catch(error => {
+          console.log('ERROR: ', error)
+        })
     }
   },
   watch: {
@@ -88,7 +128,6 @@ export default {
         .then(result => {
           self.articledata = result.data.data
           self.commentslist = result.data.data.commentsList
-        //   console.log('CommentsList-->', self.commentslist)
         })
         .catch(error => {
           console.log('ERROR: ', error)
