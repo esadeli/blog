@@ -81,7 +81,7 @@ class ArticleController {
         // console.log('PARAM----->',req.params.id)
         Article.findOne({_id : req.params.id})
             .then(articleFound=>{
-
+                let initialComments = articleFound.commentsList
                 // article found
                 if(articleFound){
                     // verify token and userId in article
@@ -92,7 +92,7 @@ class ArticleController {
                             title : req.body.title,
                             description : req.body.description,
                             userId : req.decoded.user_id, 
-                            commentsList : []
+                            commentsList : initialComments
                         })
                         .then(article =>{
                             // console.log('Article-->',article)
