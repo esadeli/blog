@@ -37,7 +37,7 @@ export default {
       let self = this
       axios({
         method: 'PUT',
-        url: `http://localhost:3000/articles/edit/${self.articleid}`,
+        url: `http://35.240.143.130/articles/edit/${self.articleid}`,
         headers: {
           token: self.token
         },
@@ -59,7 +59,7 @@ export default {
     let self = this
     axios({
       method: 'GET',
-      url: `http://localhost:3000/articles/details/${self.articleid}`
+      url: `http://35.240.143.130/articles/details/${self.articleid}`
     })
       .then(article => {
         self.title = article.data.data.title

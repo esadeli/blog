@@ -92,7 +92,7 @@ export default {
         let self = this
         axios({
           method: 'delete',
-          url: `http://localhost:3000/articles/delete/${self.id}`,
+          url: `http://35.240.143.130/articles/delete/${self.id}`,
           headers: {
             token: self.token
           }
@@ -111,7 +111,7 @@ export default {
       let self = this
       axios({
         method: 'POST',
-        url: `http://localhost:3000/comments`,
+        url: `http://35.240.143.130/comments`,
         headers: {
           token: self.token
         },
@@ -124,7 +124,7 @@ export default {
           // get the updated comment
           axios({
             method: 'GET',
-            url: `http://localhost:3000/articles/details/${self.id}`
+            url: `http://35.240.143.130/articles/details/${self.id}`
           })
             .then(articles => {
               self.commentslist = articles.data.data.commentsList
@@ -147,7 +147,7 @@ export default {
       // console.log('Ini id comment--->', input)
       axios({
         method: 'delete',
-        url: `http://localhost:3000/comments/delete/${commentId}`,
+        url: `http://35.240.143.130/comments/delete/${commentId}`,
         headers: {
           token: self.token
         }
@@ -156,7 +156,7 @@ export default {
           // get the updated comment
           axios({
             method: 'GET',
-            url: `http://localhost:3000/articles/details/${self.id}`
+            url: `http://35.240.143.130/articles/details/${self.id}`
           })
             .then(articles => {
               self.commentslist = articles.data.data.commentsList
@@ -176,7 +176,7 @@ export default {
     let self = this
     axios({
       method: 'GET',
-      url: `http://localhost:3000/articles/details/${self.id}`
+      url: `http://35.240.143.130/articles/details/${self.id}`
     })
       .then(result => {
         self.articledata = result.data.data
@@ -194,7 +194,7 @@ export default {
       let self = this
       axios({
         method: 'GET',
-        url: `http://localhost:3000/articles/details/${this.articleid}`
+        url: `http://35.240.143.130/articles/details/${this.articleid}`
       })
         .then(result => {
           self.articledata = result.data.data
