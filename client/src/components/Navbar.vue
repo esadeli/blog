@@ -283,7 +283,8 @@ export default {
       this.email = ''
       this.password = ''
       this.gettoken = ''
-      localStorage.setItem('token', '')
+      localStorage.removeItem('token')
+    //   localStorage.setItem('token', '')
       this.$router.push({ path: '/articles' })
     }
   },
