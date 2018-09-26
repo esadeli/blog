@@ -195,7 +195,7 @@ export default {
           // get user credentials
           axios({
             method: 'GET',
-            url: 'http://35.240.143.130/details',
+            url: 'http://35.240.143.130/users/details',
             headers: {
               token: jwttoken
             }
