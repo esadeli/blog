@@ -32,7 +32,7 @@ export default {
     let self = this
     axios({
       method: 'GET',
-      url: 'http://35.240.143.130/articles/lists'
+      url: 'https://blogserver.efratsadeli.online/articles/lists'
     })
       .then(result => {
         // console.log('List Articles: ', result.data.data)

@@ -70,7 +70,7 @@ export default {
         let self = this
         axios({
           method: 'POST',
-          url: 'http://35.240.143.130/articles/search',
+          url: 'https://blogserver.efratsadeli.online/articles/search',
           data: {
             keyword: self.search
           }
@@ -89,7 +89,7 @@ export default {
     // get list of articles
     axios({
       method: 'GET',
-      url: 'http://35.240.143.130/articles/lists'
+      url: 'https://blogserver.efratsadeli.online/articles/lists'
     })
       .then(result => {
         self.articleslist = result.data.data

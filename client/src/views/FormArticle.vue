@@ -46,7 +46,7 @@ export default {
       this.gettoken = this.token
       axios({
         method: 'POST',
-        url: 'http://35.240.143.130/articles/',
+        url: 'https://blogserver.efratsadeli.online/articles/',
         headers: {
           token: self.gettoken
         },
